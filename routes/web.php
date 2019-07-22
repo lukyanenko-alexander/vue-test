@@ -16,4 +16,10 @@
 //});
 
 Route::get('/', 'TestcartController@index')->name('index');
-Route::get('/increase', 'TestcartController@increase')->name('increase');
+
+Route::get('/getProducts', 'ProductController@getProducts')->name('getProducts');
+
+
+//CartController Routing
+Route::post('/addCart', 'TestcartController@addCart')->name('addCart');
+Route::get('/getCart', 'TestcartController@getCart')->name('getCart');

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-end w-100 pr-5">
-        <h3>Корзина: {{ test.total }} ₽</h3>
+        <h3>Корзина: {{ cart.total }} ₽ [{{ cart.count }}]</h3>
     </div>
 </template>
 
@@ -10,27 +10,28 @@
     export default {
         data(){
             return{
-                test: 0,
+                cart: [],
             }
         },
 
         methods:{
             fetch(){
-                axios.get('/')
+                axios.get('/getCart')
                     .then(response => {
-                        this.test = response.data;
+                        console.log(response.data);
+                        this.cart = response.data;
                     })
             },
-            created(){
-                this.$on("updateCart", (total)=>{
-                    console.log('Измененые данные' + total);
-                });
-            }
+            // created(){
+            //     this.$on("updateCart", (total)=>{
+            //         console.log('Измененые данные' + total);
+            //     });
+            // }
         },
 
         created(){
           eventEmitter.$on('updateCart', (cart) => {
-              this.test = cart;
+              this.cart = cart;
           })
         },
 

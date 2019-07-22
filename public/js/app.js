@@ -1849,20 +1849,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      test: 0
+      cart: []
     };
   },
   methods: {
     fetch: function fetch() {
       var _this = this;
 
-      axios.get('/').then(function (response) {
-        _this.test = response.data;
-      });
-    },
-    created: function created() {
-      this.$on("updateCart", function (total) {
-        console.log('Измененые данные' + total);
+      axios.get('/getCart').then(function (response) {
+        console.log(response.data);
+        _this.cart = response.data;
       });
     }
   },
@@ -1870,7 +1866,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     _app__WEBPACK_IMPORTED_MODULE_0__["eventEmitter"].$on('updateCart', function (cart) {
-      _this2.test = cart;
+      _this2.cart = cart;
     });
   },
   mounted: function mounted() {
@@ -1912,37 +1908,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      products: [{
-        title: 'Товар 1',
-        price: 500
-      }, {
-        title: 'Товар 2',
-        price: 200
-      }, {
-        title: 'Товар 3',
-        price: 100
-      }, {
-        title: 'Товар 4',
-        price: 600
-      }, {
-        title: 'Товар 5',
-        price: 400
-      }, {
-        title: 'Товар 6',
-        price: 100
-      }]
+      products: []
     };
   },
   methods: {
-    increase: function increase(price) {
-      axios.get('/increase', {
-        params: {
-          price: price
-        }
+    fetch: function fetch() {
+      var _this = this;
+
+      axios.get('/getProducts').then(function (response) {
+        _this.products = response.data;
+      });
+    },
+    increase: function increase(pid) {
+      axios.post('/addCart', {
+        id: pid
       }).then(function (response) {
         _app__WEBPACK_IMPORTED_MODULE_0__["eventEmitter"].$emit('updateCart', response.data);
       });
     }
+  },
+  mounted: function mounted() {
+    this.fetch();
   }
 });
 
@@ -37243,7 +37229,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "d-flex justify-content-end w-100 pr-5" }, [
-    _c("h3", [_vm._v("Корзина: " + _vm._s(_vm.test.total) + " ₽")])
+    _c("h3", [
+      _vm._v(
+        "Корзина: " +
+          _vm._s(_vm.cart.total) +
+          " ₽ [" +
+          _vm._s(_vm.cart.count) +
+          "]"
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -37293,7 +37287,7 @@ var render = function() {
                 staticClass: "btn btn-primary ",
                 on: {
                   click: function($event) {
-                    return _vm.increase(product.price)
+                    return _vm.increase(product.id)
                   }
                 }
               },
