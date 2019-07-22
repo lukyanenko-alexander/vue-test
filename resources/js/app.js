@@ -23,6 +23,7 @@ var eventBus = new Vue();
 
 Vue.component('cart', require('./components/Cart.vue').default);
 Vue.component('product', require('./components/Product.vue').default);
+Vue.component('cart-content', require('./components/CartContent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

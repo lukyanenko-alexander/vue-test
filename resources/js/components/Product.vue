@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div v-for="product in products" class="col-2 p-5">
+        <div v-for="product in products" class="col-3 p-5">
             <div class="border shadow-sm p-2">
                 <div class="form-group d-flex justify-content-center">
                     <h5>{{ product.title }}</h5>

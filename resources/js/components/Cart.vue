@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex justify-content-end w-100 pr-5">
-        <h3><a href="/cart"> Корзина: {{ cart.total }} ₽ [{{ cart.count }}] </a> </h3>
+    <div class="d-flex justify-content-end w-100">
+        <h3><a href="/cart"> Корзина: {{ cart.total }} ₽ [{{ cart.count }}]</a></h3>
     </div>
 </template>
 
@@ -18,7 +18,6 @@
             fetch(){
                 axios.get('/getCart')
                     .then(response => {
-                        console.log(response.data);
                         this.cart = response.data;
                     })
             },
@@ -27,6 +26,9 @@
         created(){
           eventEmitter.$on('updateCart', (cart) => {
               this.cart = cart;
+          });
+          eventEmitter.$on('updateCart1', () => {
+              this.fetch();
           })
         },
 

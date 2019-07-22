@@ -10,14 +10,23 @@ use Illuminate\Http\Request;
 class CartController extends Controller
 {
     public function home(){
-        $test = Testcart::find(1);
-
-        return view('welcome', [
-           'test' => $test,
-        ]);
+        return view('welcome');
     }
 
     public function index(){
+        return view('cart.cart');
+    }
+
+    public function cartContent(){
+
+        $newCart=[];
+
+        foreach (Cart::content() as $cartItem){
+            array_push($newCart, $cartItem);
+        }
+
+//        dump(Cart::content());
+        return response()->json(Cart::content());
     }
 
     public function getCart(){
@@ -35,5 +44,15 @@ class CartController extends Controller
             'total'=>Cart::total(),
             'count'=>Cart::count()
         ]);
+    }
+
+    public function destroyItem(){
+        Cart::remove(request()->rowId);
+        return response()->json(Cart::content());
+    }
+
+    public function updateQty(){
+        Cart::update(request()->rowId, request()->qty);
+        return response()->json(Cart::content());
     }
 }
