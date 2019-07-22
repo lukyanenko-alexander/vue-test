@@ -37230,13 +37230,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "d-flex justify-content-end w-100 pr-5" }, [
     _c("h3", [
-      _vm._v(
-        "Корзина: " +
-          _vm._s(_vm.cart.total) +
-          " ₽ [" +
-          _vm._s(_vm.cart.count) +
-          "]"
-      )
+      _c("a", { attrs: { href: "/cart" } }, [
+        _vm._v(
+          " Корзина: " +
+            _vm._s(_vm.cart.total) +
+            " ₽ [" +
+            _vm._s(_vm.cart.count) +
+            "] "
+        )
+      ])
     ])
   ])
 }

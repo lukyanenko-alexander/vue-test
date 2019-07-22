@@ -7,19 +7,17 @@ use App\Testcart;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
-class TestcartController extends Controller
+class CartController extends Controller
 {
-    public function index(){
-
+    public function home(){
         $test = Testcart::find(1);
-
-        if(\request()->expectsJson()){
-            return response()->json($test->toArray());
-        }
 
         return view('welcome', [
            'test' => $test,
         ]);
+    }
+
+    public function index(){
     }
 
     public function getCart(){
@@ -30,7 +28,6 @@ class TestcartController extends Controller
     }
 
     public function addCart(){
-
         $product = Product::find(request()->id);
         Cart::add($product->id, $product->title, 1, $product->price);
 
@@ -38,19 +35,5 @@ class TestcartController extends Controller
             'total'=>Cart::total(),
             'count'=>Cart::count()
         ]);
-
-//        $test = Testcart::find(1);
-//
-//        $test -> update([
-//            'total' => $test->total + $request->price
-//        ]);
-//
-//        if(\request()->expectsJson()){
-//            return response()->json($test->toArray());
-//        }
-//
-//        return view('welcome', [
-//            'test' => $test,
-//        ]);
     }
 }

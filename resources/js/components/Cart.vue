@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-content-end w-100 pr-5">
-        <h3>Корзина: {{ cart.total }} ₽ [{{ cart.count }}]</h3>
+        <h3><a href="/cart"> Корзина: {{ cart.total }} ₽ [{{ cart.count }}] </a> </h3>
     </div>
 </template>
 
@@ -22,11 +22,6 @@
                         this.cart = response.data;
                     })
             },
-            // created(){
-            //     this.$on("updateCart", (total)=>{
-            //         console.log('Измененые данные' + total);
-            //     });
-            // }
         },
 
         created(){
