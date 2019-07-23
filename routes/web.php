@@ -15,5 +15,14 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'TestcartController@index')->name('index');
-Route::get('/increase', 'TestcartController@increase')->name('increase');
+Route::get('/', 'CartController@home')->name('home');
+Route::get('/getProducts', 'ProductController@getProducts')->name('getProducts');
+
+
+//CartController Routing
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/cartContent', 'CartController@cartContent')->name('cartContent');
+Route::get('/getCart', 'CartController@getCart')->name('getCart');
+Route::post('/addCart', 'CartController@addCart')->name('addCart');
+Route::post('/updateQty', 'CartController@updateQty')->name('updateQty');
+Route::delete('/destroyItem', 'CartController@destroyItem')->name('destroyItem');
